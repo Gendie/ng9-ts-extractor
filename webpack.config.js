@@ -3,6 +3,9 @@ const path = require('path');
 module.exports = {
     mode: 'development',
     target: 'node',
+    node: {
+        __dirname: false
+    },
     entry: './src/index.ts',
     module: {
         rules: [
@@ -20,5 +23,5 @@ module.exports = {
         filename: 'index.js',
         path: path.resolve(__dirname, 'dist'),
         libraryTarget: 'umd'
-    },
+    }
 };

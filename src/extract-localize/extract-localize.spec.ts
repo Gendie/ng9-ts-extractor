@@ -16,7 +16,7 @@ describe('extractLocalize', () => {
     }`;
 
     it('should extract nothing', () => {
-        expect(extractLocalize(fileContent1)).toBeNull();
+        expect(extractLocalize(fileContent1).length).toEqual(0);
     });
     
     it('should extract', () => {

@@ -32,11 +32,3 @@ export function getAllFilesPathes(path: string): Promise<string[]> {
         });
     })
 }
-
-export function appendOnFile(path: string, content: string){
-    fs.appendFile(path, content+"\n", function (err) {
-        if (err) throw err;
-        console.log('Saved!');
-      });
-
-}
