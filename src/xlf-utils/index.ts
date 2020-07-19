@@ -1,9 +1,3 @@
-import { LocalizeDate } from '../extract-localize';
 
-export function generateXlf(data: LocalizeDate[]): string {
-    return data.map(element => `
-    <trans-unit id="${element.id}">
-        <source>${element.source}</source>
-    </trans-unit>
-    `).join('\n');
-}
+export * from './regex';
+export * from './xlf-utils';
