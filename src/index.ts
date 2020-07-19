@@ -10,4 +10,4 @@ export function execute(projectPath: string, messagesFilePath: string) {
 
 }
 
-execute(__dirname, "");
+execute(__dirname, '/src/i18n/messages.xlf');

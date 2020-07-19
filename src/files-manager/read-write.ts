@@ -1,10 +1,9 @@
 import * as fs from 'fs';
-// import * as xmldom from 'xmldom';
 
 export function readFile(path: string): Promise<string> {
     return new Promise((resolve, reject) => {
         fs.readFile(path, 'utf8', (err, data) => {
-            if(err) {
+            if (err) {
                 return reject(err);
             }
             resolve(data);
@@ -12,10 +11,18 @@ export function readFile(path: string): Promise<string> {
     })
 }
 
+export function readFiles(pathes: string[]): Promise<string[]> {
+    const promises: Promise<string>[] = [];
+    pathes.forEach(path => {
+        promises.push(readFile(path));
+    })
+    return Promise.all(promises);
+}
+
 export function writeFile(path: string, content: string): Promise<void> {
     return new Promise((resolve, reject) => {
         fs.writeFile(path, content, 'utf8', (err) => {
-            if(err) {
+            if (err) {
                 return reject(err);
             }
             resolve();
@@ -23,11 +30,32 @@ export function writeFile(path: string, content: string): Promise<void> {
     })
 }
 
-export function appendToFile(path: string, content: string) {
-    fs.appendFile(path, content + "\n", function (err) {
-        if (err) throw err;
-        console.log('Saved!');
-    });
+export async function updateFile(path: string, updater: (content: string) => string): Promise<void> {
+    const fileContent = await readFile(path);
+    const updatedFileContent = updater(fileContent);
+    return await writeFile(path, updatedFileContent);
+}
+
+export async function updateFiles(pathes: string[], updater: (content: string) => string): Promise<void[]> {
+    const promises: Promise<void>[] = [];
+    pathes.forEach(path => {
+        promises.push(updateFile(path, updater));
+    })
+    return Promise.all(promises);
+}
+
+export async function appendToFile(path: string, content: string) {
+    let fileContent = await readFile(path);
+    fileContent = fileContent.replace('</file>', '');
+    fileContent = fileContent.replace('</body>', '');
+    fileContent = fileContent.replace('</xliff>', '');
+    fileContent += content;
+    fileContent += '\n</body>\n</file>\n</xliff>';
+    return await writeFile(path, fileContent);
+    // fs.appendFile(path, content + "\n", function (err) {
+    //     if (err) throw err;
+    //     console.log('Saved!');
+    // });
 
 }
 

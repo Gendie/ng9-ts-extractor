@@ -1,5 +1,4 @@
-const localizePattern = /\$localize *`:@@.+:.+`/g;
-const signlelocalizePattern = /\$localize *`:@@(?<id>.+):(?<source>.+)`/;
+import { localizeRegex } from '../xlf-utils';
 
 export interface LocalizeDate {
     source: string,
@@ -8,14 +7,17 @@ export interface LocalizeDate {
 }
 
 export function extractLocalize(fileContent: string): LocalizeDate[] {
-    const localizeStrings = fileContent.match(localizePattern);
+    const localizeStrings = fileContent.match(localizeRegex.id);
     if (!localizeStrings) {
         return [];
     }
-    return localizeStrings.map(localizeString => localizeString.match(signlelocalizePattern))
+    return localizeStrings.map(localizeString => localizeString.match(localizeRegex.idDetails))
         .map(match => ({
             id: match.groups.id,
-            source: match.groups.source
+            source: match.groups.source.replace(/\${(?<variable>((?!}).)+)}/g, match => {
+                const matchDetails = match.match(/\${(?<variable>((?!}).)+)}/);
+                return `<x id="INTERPOLATION" equiv-text="{{${matchDetails.groups.variable}}}"/>`;
+            })
         }));
 }
 
