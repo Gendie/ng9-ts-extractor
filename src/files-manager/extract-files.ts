@@ -1,4 +1,18 @@
 const fs = require('fs');
+const glob = require("glob");
+
+export function getFilesOfGlop(glop: string): Promise<string[]> {
+    return new Promise((resolve, reject) => {
+        glob(glop, {}, function (err, files) {
+            if (err) {
+                reject(err);
+                return console.log(" errors!", err);
+            } else {
+                resolve(files || []);
+            }
+          })
+    });
+}
 
 export function getAllFilesPathes(path: string): Promise<string[]> {
     return new Promise((resolve, reject) => {

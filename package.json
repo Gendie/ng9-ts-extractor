@@ -22,5 +22,8 @@
   },
   "bin": {
     "ts-extractor": "./dist/index.js"
+  },
+  "dependencies": {
+    "glob": "^7.1.6"
   }
 }

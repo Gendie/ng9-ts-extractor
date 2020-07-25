@@ -1,6 +1,6 @@
 {
   "name": "ng9-ts-extractor",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Extract Angular 9 Localize from TypeScript files",
   "repository": {
     "type": "git",

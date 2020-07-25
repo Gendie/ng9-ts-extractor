@@ -1,14 +1,15 @@
 import * as path from "path";
 
-import { getAllFilesPathes, readFiles, updateFiles, appendToFile } from "./files-manager";
+import { getFilesOfGlop, readFiles, updateFiles, appendToFile } from "./files-manager";
 import { extractLocalize, LocalizeDate } from './extract-localize';
 import { appendIdToLocalize, generateXlf } from './xlf-utils';
 
-export async function extract(projectPath: string, messagesFilePath: string): Promise<void> {
+export async function extract(root: string, include: string, messagesFilePath: string): Promise<void> {
 
     // Get files names
-    const directoryPath = path.join(projectPath, '/src/app');
-    const filesPathes = await getAllFilesPathes(directoryPath);
+    // const directoryPath = path.join(projectPath, '/src/app');
+    // const filesPathes = await getAllFilesPathes(directoryPath);
+    const filesPathes = await getFilesOfGlop(include);
 
     // autogenerate ids
     await autoGenerateIds(filesPathes);
@@ -20,7 +21,7 @@ export async function extract(projectPath: string, messagesFilePath: string): Pr
     const xlf = generateXlf(localizeData);
 
     // append xlf to messages
-    appendToFile(path.join(projectPath, messagesFilePath), xlf);
+    appendToFile(path.join(root, messagesFilePath), xlf);
 
     return Promise.resolve();
 }
