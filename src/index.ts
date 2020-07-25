@@ -1,6 +1,6 @@
 import { extract } from './extractor';
 
-export function execute(projectPath: string, messagesFilePath: string) {
+export function execute(projectPath = __dirname, messagesFilePath: string) {
 
     extract(projectPath, messagesFilePath).then(() => {
         console.log("Done");
@@ -9,5 +9,3 @@ export function execute(projectPath: string, messagesFilePath: string) {
     })
 
 }
-
-execute(__dirname, '/src/i18n/messages.xlf');
