@@ -1,0 +1,26 @@
+{
+  "name": "ng9-ts-extractor",
+  "version": "1.0.2",
+  "description": "Extract Angular 9 Localize from TypeScript files",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Gendie/ng9-ts-extractor"
+  },
+  "keywords": [
+    "angular",
+    "angular9",
+    "i18n",
+    "extractor",
+    "TypeScript",
+    "Extraction",
+    "xlf"
+  ],
+  "license": "MIT",
+  "author": "Gendy <mohammad.algendy.me@gmail.com>",
+  "bin": {
+    "ts-extract": "./bin/ts-extractor.js"
+  },
+  "dependencies": {
+    "yargs": "^15.4.1"
+  }
+}

@@ -50,7 +50,11 @@ export async function appendToFile(path: string, content: string) {
     fileContent = fileContent.replace('</body>', '');
     fileContent = fileContent.replace('</xliff>', '');
     fileContent += content;
-    fileContent += '\n</body>\n</file>\n</xliff>';
+    fileContent += `
+        </body>
+    </file>
+</xliff>
+    `;
     return await writeFile(path, fileContent);
     // fs.appendFile(path, content + "\n", function (err) {
     //     if (err) throw err;

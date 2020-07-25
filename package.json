@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Extract \"$localize\" defined messages from TS files",
   "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "webpack",
     "test": "jest"
@@ -20,5 +19,11 @@
     "typescript": "^3.9.6",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.12"
+  },
+  "bin": {
+    "ts-extractor": "./dist/index.js"
+  },
+  "dependencies": {
+    "glob": "^7.1.6"
   }
 }

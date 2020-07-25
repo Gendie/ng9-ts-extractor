@@ -1,13 +1,11 @@
 import { extract } from './extractor';
 
-export function execute(projectPath: string, messagesFilePath: string) {
+export function execute(root: string, include: string, messagesFilePath: string, format: string) {
 
-    extract(projectPath, messagesFilePath).then(() => {
+    extract(root, include, messagesFilePath).then(() => {
         console.log("Done");
     }).catch(err => {
         throw err;
     })
 
 }
-
-execute(__dirname, '/src/i18n/messages.xlf');
